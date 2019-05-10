@@ -1,1 +1,0 @@
-# webova_stranka
