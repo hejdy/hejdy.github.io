@@ -1,0 +1,69 @@
+newmtl 3D_strecha_sedlec.dgn_3D_Metric_Design_244_233_215_vis
+    Ns 0.000000
+    Kd 0.956863 0.913725 0.843137
+    Ks 1.000000 1.000000 1.000000
+
+    map_Kd 
+
+newmtl 3D_tasky_sedlec.dgn_3D_Metric_Design_163_160_171_vis
+    Ns 0.000000
+    Kd 0.639216 0.627451 0.670588
+    Ks 1.000000 1.000000 1.000000
+
+    map_Kd 
+
+newmtl 3D_støešní_okna_sedlec.dgn_3D_Metric_Design_151_149_158_vis
+    Ns 0.000000
+    Kd 0.592157 0.584314 0.619608
+    Ks 1.000000 1.000000 1.000000
+
+    map_Kd 
+
+newmtl 3D_strop1p_sedlec.dgn_3D_Metric_Design_255_255_255_vis
+    Ns 0.000000
+    Kd 1.000000 1.000000 1.000000
+    Ks 1.000000 1.000000 1.000000
+
+    map_Kd 
+
+newmtl 3D_komin_sedlec.dgn_3D_Metric_Design_130_116_115_vis
+    Ns 0.000000
+    Kd 0.509804 0.454902 0.450980
+    Ks 1.000000 1.000000 1.000000
+
+    map_Kd 
+
+newmtl 3D_støešní_okna_sedlec.dgn_3D_Metric_Design_240_240_240_vis
+    Ns 0.000000
+    Kd 0.941176 0.941176 0.941176
+    Ks 1.000000 1.000000 1.000000
+
+    map_Kd 
+
+newmtl 3D_støešní_okna_sedlec.dgn_3D_Metric_Design_75_0_0_vis
+    Ns 0.000000
+    Kd 0.294118 0.000000 0.000000
+    Ks 1.000000 1.000000 1.000000
+
+    map_Kd 
+
+newmtl 3D_støešní_okna_sedlec.dgn_3D_Metric_Design_210_210_210_vis
+    Ns 0.000000
+    Kd 0.823529 0.823529 0.823529
+    Ks 1.000000 1.000000 1.000000
+
+    map_Kd 
+
+newmtl 3D_støešní_okna_sedlec.dgn_3D_Metric_Design_31_26_20_vis
+    Ns 0.000000
+    Kd 0.121569 0.101961 0.078431
+    Ks 1.000000 1.000000 1.000000
+
+    map_Kd 
+
+newmtl 3D_tasky_sedlec.dgn_3D_Metric_Design_31_26_20_vis
+    Ns 0.000000
+    Kd 0.121569 0.101961 0.078431
+    Ks 1.000000 1.000000 1.000000
+
+    map_Kd 

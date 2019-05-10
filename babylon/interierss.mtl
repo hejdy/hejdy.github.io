@@ -1,0 +1,20 @@
+newmtl 3D_klenby_sedlec.dgn_3D_Metric_Design_255_0_0_vis
+    Ns 0.000000
+    Kd 1.000000 0.000000 0.000000
+    Ks 1.000000 1.000000 1.000000
+
+    map_Kd 
+
+newmtl 3D_interier_zdi_1NP_sedlec.dgn_3D_Metric_Design_0_150_0_vis
+    Ns 0.000000
+    Kd 0.000000 0.588235 0.000000
+    Ks 1.000000 1.000000 1.000000
+
+    map_Kd 
+
+newmtl 3D_podlahy_1NP_sedlec.dgn_3D_Metric_Design_255_255_255_vis
+    Ns 0.000000
+    Kd 1.000000 1.000000 1.000000
+    Ks 1.000000 1.000000 1.000000
+
+    map_Kd 
