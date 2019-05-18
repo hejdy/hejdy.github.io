@@ -16,12 +16,9 @@
         <script src="./js/three.js"></script>
 		<script src="./js/ColladaLoader2.js"></script>
 		<script src="./js/OrbitControls.js"></script>
-		<script src="./js/Detector.js"></script>
 
 
-    
-    
-    
+  
     
     <link
       rel="stylesheet"
@@ -192,7 +189,7 @@
     </div>
     		<script>
 
-			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+
 			var container, stats, clock, controls;
 			var camera, scene, renderer;
 			init();
@@ -200,15 +197,25 @@
 
 			function init() {
 				container = document.getElementById( 'container' );
+        
+        //scene
+      	scene = new THREE.Scene();  
+        
+        //camera
 				camera = new THREE.PerspectiveCamera( 15, window.innerWidth / window.innerHeight, 1, 10000 );
-				camera.position.set( -100, -0.6, -9.5 );
-				scene = new THREE.Scene();
+				camera.position.set( -100, -2, -0.5 );
 				scene.add(camera);
-        
-        clock = new THREE.Clock();
-        
-// collada
 
+        //lights   
+     		var ambientLight = new THREE.AmbientLight( 0xffffff, 0.2 );
+				scene.add( ambientLight );
+
+				var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.8 );
+				directionalLight.position.set( 1, 1, 1 ).normalize();
+				camera.add( directionalLight ); 
+        
+        
+        //collada loader
 				var loader = new THREE.ColladaLoader();
 				loader.options.convertUpAxis = true;
 				loader.load( 
@@ -219,40 +226,19 @@
 					scene.add( avatar );
 				} );
 
-//
-//				var gridHelper = new THREE.GridHelper( 10, 20 );
-//				scene.add( gridHelper );
 
-//
-
-				var ambientLight = new THREE.AmbientLight( 0xffffff, 0.2 );
-				scene.add( ambientLight );
-
-				var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.8 );
-				directionalLight.position.set( 1, 1, 1 ).normalize();
-				camera.add( directionalLight );
-//        camera.add( directionalLight.target );
-
-//
-
+        //rendering 
 				renderer = new THREE.WebGLRenderer( { antialias: true } );
         renderer.setClearColor( 0xffffff );
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth-80, window.innerHeight );
 				container.appendChild( renderer.domElement );
 
-//
-
+        //seting controls orbit
 				controls = new THREE.OrbitControls( camera, renderer.domElement );
-				controls.target.set( 0, 0, -0 );
+				controls.target.set( 0, 0, 0 );
 				controls.update();
 
-//
-
-//				stats = new Stats();
-//				container.appendChild( stats.dom );
-
-//
 
 				window.addEventListener( 'resize', onWindowResize, false );
 
@@ -267,11 +253,9 @@
 			function animate() {
 				requestAnimationFrame( animate );
 				render();
-//				stats.update();
 			}
 
 			function render() {
-				var delta = clock.getDelta();
 				renderer.render( scene, camera );
 			}
 

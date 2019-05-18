@@ -13,13 +13,18 @@
     </script>
     
     
-     <!-- Link to pep.js to ensure pointer events work consistently in all browsers -->
-    <script src="https://code.jquery.com/pep/0.4.1/pep.js"></script>
-    
-    <!-- Babylon.js -->
-    <script src="https://preview.babylonjs.com/babylon.js"></script>
-    <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
-    <script src="https://preview.babylonjs.com/loaders/babylonjs.objloaders.js"></script>
+  		<script src="./js/three.js"></script>
+
+		<script src="./js/DDSLoader.js"></script>
+		<script src="./js/MTLLoader.js"></script>
+		<script src="./js/OBJLoader.js"></script>
+    <script src="./js/OrbitControls.js"></script>
+		<script src="./js/Detector.js"></script>
+
+		<script src="js/stats.min.js"></script>
+      
+
+     
     
     <link
       rel="stylesheet"
@@ -30,8 +35,8 @@
       body {
         font-family: Arial, Helvetica, sans-serif;
         background-image: url("./images/background.jpg")
-      }    
-     
+      }
+
       .navbar {
         overflow: hidden;
         background-color: #333;
@@ -113,7 +118,7 @@
         width: 100%;
         background-color: black;
         color: white;
-        text-align: center;
+        text-align: center;  
       }
 
       .footer img {
@@ -130,19 +135,19 @@
         height: 50px;
         line-height: 50px;
         text-align: center;
-      }
+      }     
+   
+          div#container canvas{
+          position: relative;
+          width: 80%;
+      height: 80%;
+          
+          }
       
-      
-         #renderCanvas {
-                width: 100%;
-                height: 80%;
-                margin-bottom: 60px;
-                touch-action: manipulation;
-            }
     </style>
   </head>
   <body>
-    <header>
+    <header>     
       <h1 class="intro"><span>Vizualizace usedlosti Sedlec-Křešice</span></h1>
     </header>
     <div class="navbar">
@@ -168,7 +173,7 @@
         </button>
         <div class="dropdown-content">
           <a href="./babylon.html">Babylon.js</a>
-          <a href="./three.html">Three.js</a>
+          <a href="/three.html">Three.js</a>
           <a href="https://www.youtube.com/watch?v=mDFBTdToRmw"
             >Youtube video
           </a>
@@ -178,77 +183,124 @@
         >Informace o projektu
       </a>
     </div>
-
-    <h3>Vizualizace v rozhraní Babylon.js</h3>
-    <canvas id="renderCanvas"></canvas>
-    <script>
-   
-        var canvas = document.getElementById("renderCanvas"); 
-        
-        
-       // scene 
-        var createScene = function () {
-        engine.enableOfflineSupport = false;
-        var scene = new BABYLON.Scene(engine);
-        scene.clearColor = new BABYLON.Color3(1, 1, 1); 
     
-      
-            // camera
-            var camera = new BABYLON.ArcRotateCamera("Camera", 2.88*Math.PI/2, 3*Math.PI /2, -30, new BABYLON.Vector3(0, 0, 0.5), scene);
-            camera.attachControl(canvas, false);
-            camera.lowerRadiusLimit = 15;
-            camera.upperRadiusLimit = 100;
-            camera.wheelDeltaPercentage = 0.01; 
-            camera.setTarget(BABYLON.Vector3.Zero());    
+    <h3>Vizualizace v rozhraní Three.js</h3>
 
-            
-            // light  
-            		var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 1), scene);
-                light.intensity = 1.35;
-            	  light.specular = new BABYLON.Color3(.0, .0, .0);    
-                       
-               	var light2 = new BABYLON.PointLight("light", new BABYLON.Vector3( -20, -10, -30), scene);
-                light2.intensity = 0.9;
-            	  light2.specular = new BABYLON.Color3(0,0,0); 
+   
+		<div id="container"></div> 
 
+    <div class="footer">
+      <img src="cvut_white.png" alt="logo_cvut" />
+      <p>Vyhotovila Bc. Petra Hejduková v rámci diplomové práce 2019</p>
+    </div>
+    		<script>
+
+			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+     var container, stats, clock, controls;
+			var camera, scene, renderer;
+      var ob1,ob2,ob3,ob4;
+
+			init();
+			animate();
+			function init() {
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+        
+  			// scene
+				scene = new THREE.Scene();
+        clock = new THREE.Clock();				   
+        
+        //camera
+				camera = new THREE.PerspectiveCamera( 15, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.position.set( -100, -0.6, -9.5 );  
+        scene.add( camera );   
+
+           
+           
+        //light
+        var ambientLight = new THREE.AmbientLight( 0xffffff, 0.2 );
+				scene.add( ambientLight );  
+
+				var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.8 );
+				directionalLight.position.set( 1, 1, 1 ).normalize();
+				camera.add( directionalLight );  
+           
+           
+           
+           
+				// add layers of model 
+				new THREE.MTLLoader()
+					.setPath( './babylon/' )
+					.load( 'strecha.mtl', function ( materials ) 
+          {      
+						materials.preload();
+						new THREE.OBJLoader()
+							.setMaterials( materials )
+							.setPath( './babylon/' )
+							.load( 'strecha.obj', function ( object ) 
+              {
+								object.position.y = 0;
+                ob1=object
+								scene.add( object );
+							},);
+					} );
+
+				new THREE.MTLLoader()
+					.setPath( './babylon/' )
+					.load( 'interier1np.mtl', function ( materials ) 
+          {
+						materials.preload();
+						new THREE.OBJLoader()
+							.setMaterials( materials )
+							.setPath( './babylon/' )
+							.load( 'interier1np.obj', function ( object ) 
+              {
+                ob2=object
+								object.position.y = 0;
+								scene.add( object );
+							},);
+					} );
+        
+
+				new THREE.MTLLoader()
+					.setPath( './babylon/' )
+					.load( 'obvod.mtl', function ( materials ) 
+          {
+						materials.preload();
+						new THREE.OBJLoader()
+							.setMaterials( materials )
+							.setPath( './babylon/' )
+							.load( 'obvod.obj', function ( object )
+               {
+								object.position.y = 0;
+                ob3=object
+								scene.add( object );
+							},  );
+					} );
           
-        //  import all meshes
-          BABYLON.OBJFileLoader.OPTIMIZE_WITH_UV = true;
-          BABYLON.SceneLoader.ImportMesh(
-          "",
-          "./babylon/",
-          "strecha.obj",
-          scene,
-          function(myMeshesOne) {  
-            
-            BABYLON.SceneLoader.ImportMesh(
-              "",
-              "./babylon/",
-              "interier1np.obj",
-              scene,
-              function(myMeshesTwo) {
-                    
-                BABYLON.SceneLoader.ImportMesh(
-                  "",
-                  "./babylon/",
-                  "obvod.obj",
-                  scene,
-                  function(myMeshesThree) { 
-                    BABYLON.SceneLoader.ImportMesh(
-                      "",
-                      "./babylon/",
-                      "interier2np.obj",
-                      scene,
-                      function(myMeshesFour) {
-                      
-                               console.log(myMeshesFour)
-                      
-                        // add buttons
-                        var buttonbox = document.createElement("div")
+
+				new THREE.MTLLoader()
+					.setPath( './babylon/' )
+					.load( 'interier2np.mtl', function ( materials )
+           {
+						materials.preload();
+						new THREE.OBJLoader()
+							.setMaterials( materials )
+							.setPath( './babylon/' )
+							.load( 'interier2np.obj', function ( object )
+               { 
+								object.position.y = 0;
+                ob4=object   
+								scene.add( object );
+							},  );
+					} );
+           
+                     
+               var buttonbox = document.createElement("div")
                         buttonbox.id = "buttonbox"
                         buttonbox.style.position = "absolute"
                         buttonbox.style.top = "300px"
-                        buttonbox.style.left = "83%"
+                        buttonbox.style.left = "80%"
                         buttonbox.style.border = "5pt inset black"
                         buttonbox.style.padding = "2pt"
                         buttonbox.style.paddingRight = "10pt"
@@ -257,7 +309,7 @@
                         buttonbox.style.display = "block"
                         document.body.appendChild(buttonbox)
 
-                        var tTag = document.createElement("div")
+               var tTag = document.createElement("div")
                         tTag.id = "choose"
                         tTag.textContent = "Zobrazit/Skrýt"
                         tTag.style.textAlign = "center"
@@ -269,7 +321,7 @@
                         tTag.style.color = "white"
                         buttonbox.appendChild(tTag)
 
-                        var BT1 = document.createElement("button")
+               var BT1 = document.createElement("button")
                         BT1.id = "ShowHidemyMeshesOne"
                         BT1.textContent = "Střecha"
                         BT1.style.backgroundColor = "green"
@@ -279,16 +331,12 @@
                         buttonbox.appendChild(BT1)
                         BT1.onclick = function() {
                           // Show/Hide myMeshThree
-                          let enable
-                          for (mesh of myMeshesOne) {
-                            enable = mesh.isEnabled()
-                            mesh.setEnabled(mesh.isEnabled() ? false : true)
-                          }
-
-                          BT1.style.backgroundColor = enable ? "red" : "green"
+                          (ob1.visible)?ob1.visible=false:ob1.visible=true
+                                         enable=ob1.visible
+                          BT1.style.backgroundColor = enable ? "green" : "red"
                         }
 
-                        var BT2 = document.createElement("button")
+                var BT2 = document.createElement("button")
                         BT2.id = "ShowHidemyMeshesTwo"
                         BT2.textContent = "Příčky dole"
                         BT2.style.backgroundColor = "green"
@@ -298,16 +346,12 @@
                         buttonbox.appendChild(BT2)
                         BT2.onclick = function() {
                           // Show/Hide myMeshThree
-                          let enable
-                          for (mesh of myMeshesTwo) {
-                            enable = mesh.isEnabled()
-                            mesh.setEnabled(mesh.isEnabled() ? false : true)
-                          }
-
-                          BT2.style.backgroundColor = enable ? "red" : "green"
+                        (ob2.visible)?ob2.visible=false:ob2.visible=true
+                                         enable=ob2.visible
+                          BT2.style.backgroundColor = enable ? "green" : "red"
                         }
 
-                        var BT3 = document.createElement("button")
+               var BT3 = document.createElement("button")
                         BT3.id = "ShowHidemyMeshesThree"
                         BT3.textContent = "Obvodové stěny"
                         BT3.style.backgroundColor = "green"
@@ -317,16 +361,12 @@
                         buttonbox.appendChild(BT3)
                         BT3.onclick = function() {
                           // Show/Hide myMeshThree
-                          let enable
-                          for (mesh of myMeshesThree) {
-                            enable = mesh.isEnabled()
-                            mesh.setEnabled(mesh.isEnabled() ? false : true)
-                          }
-
-                          BT3.style.backgroundColor = enable ? "red" : "green"
+                           (ob3.visible)?ob3.visible=false:ob3.visible=true
+                                         enable=ob3.visible
+                          BT3.style.backgroundColor = enable ? "green" : "red"
                         }
 
-                        var BT4 = document.createElement("button")
+                var BT4 = document.createElement("button")
                         BT4.id = "ShowHidemyMeshesThree"
                         BT4.textContent = "Příčky nahoře"
                         BT4.style.backgroundColor = "green"
@@ -336,63 +376,45 @@
                         buttonbox.appendChild(BT4)
                         BT4.onclick = function() {
                           // Show/Hide myMeshThree
-                          let enable
-                          for (mesh of myMeshesFour) {
-                            enable = mesh.isEnabled()
-                            mesh.setEnabled(mesh.isEnabled() ? false : true)
-                          }
+                            (ob4.visible)?ob4.visible=false:ob4.visible=true
+                                          enable=ob4.visible
+                          BT4.style.backgroundColor = enable ? "green" : "red"
+                        }    
                         
-                          BT4.style.backgroundColor = enable ? "red" : "green"
-                        }
-              
-                      }    
-                    ) // end of MeshFour onSuccess area
-                  }
-                ) // end of MeshThree onSuccess area
-              }
-            ) // end of MeshTwo onSuccess area
-          }
-        ) // end of MeshOne onSuccess area
-
-        // Move the light with the camera
-        scene.registerBeforeRender(function() {
-          light.position = camera.position
-        
-        })
-        
-    // VR camera in scene
-    var vrHelper = scene.createDefaultVRExperience({createDeviceOrientationCamera:false});
-    vrHelper.enableTeleportation();
-     
-
-        return scene
-      }
-
-      var engine = new BABYLON.Engine(canvas, true, {
-        preserveDrawingBuffer: true,
-        stencil: true
-      })
-      var scene = createScene()
-       
-      engine.runRenderLoop(function() {   
-        if (scene) {
-          scene.render()
-        }
-      })
-
-      // Resize
-      window.addEventListener("resize", function() {
-        engine.resize()
-      })
-    </script>
 
 
+        //rednering
+			  renderer = new THREE.WebGLRenderer( { antialias: true } );
+        renderer.setClearColor( 0xffffff );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth-80, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+        //control rotation
+				controls = new THREE.OrbitControls( camera, renderer.domElement );
+				controls.target.set( 0, 0, -0 );
+				controls.update();
 
 
+				window.addEventListener( 'resize', onWindowResize, false );
 
-    <div class="footer">
-      <img src="cvut_white.png" alt="logo_cvut" />
-      <p>Vyhotovila Bc. Petra Hejduková v rámci diplomové práce 2019</p>
-    </div>
+			}
+
+			function onWindowResize() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth-80, window.innerHeight );
+			}
+
+			function animate() {
+				requestAnimationFrame( animate );
+				render();
+			}
+
+			function render() {
+				renderer.render( scene, camera );
+			}
+
+		</script>
   </body>
 </html>
