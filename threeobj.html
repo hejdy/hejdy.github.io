@@ -15,7 +15,6 @@
     
   		<script src="./js/three.js"></script>
 
-		<script src="./js/DDSLoader.js"></script>
 		<script src="./js/MTLLoader.js"></script>
 		<script src="./js/OBJLoader.js"></script>
     <script src="./js/OrbitControls.js"></script>
@@ -173,10 +172,8 @@
         </button>
         <div class="dropdown-content">
           <a href="./babylon.html">Babylon.js</a>
-          <a href="/three.html">Three.js</a>
-          <a href="https://www.youtube.com/watch?v=mDFBTdToRmw"
-            >Youtube video
-          </a>
+          <a href="./three.html">Three.js - DAE</a>
+         <a href="./threeobj.html">Three.js - OBJ</a>
         </div>
       </div>
       <a href="http://venkov.fsv.cvut.cz/projekt/index.html"
@@ -184,7 +181,7 @@
       </a>
     </div>
     
-    <h3>Vizualizace v rozhraní Three.js</h3>
+    <h3>Vizualizace modelu ve formátu OBJ v rozhraní Three.js</h3>
 
    
 		<div id="container"></div> 
@@ -218,7 +215,7 @@
            
            
         //light
-        var ambientLight = new THREE.AmbientLight( 0xffffff, 0.2 );
+        var ambientLight = new THREE.AmbientLight( 0xffffff, 0.1);
 				scene.add( ambientLight );  
 
 				var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.8 );
@@ -247,13 +244,13 @@
 
 				new THREE.MTLLoader()
 					.setPath( './babylon/' )
-					.load( 'interier1np.mtl', function ( materials ) 
+					.load( 'interier1pp.mtl', function ( materials ) 
           {
 						materials.preload();
 						new THREE.OBJLoader()
 							.setMaterials( materials )
 							.setPath( './babylon/' )
-							.load( 'interier1np.obj', function ( object ) 
+							.load( 'interier1pp.obj', function ( object ) 
               {
                 ob2=object
 								object.position.y = 0;
@@ -281,13 +278,13 @@
 
 				new THREE.MTLLoader()
 					.setPath( './babylon/' )
-					.load( 'interier2np.mtl', function ( materials )
+					.load( 'interier2pp.mtl', function ( materials )
            {
 						materials.preload();
 						new THREE.OBJLoader()
 							.setMaterials( materials )
 							.setPath( './babylon/' )
-							.load( 'interier2np.obj', function ( object )
+							.load( 'interier2pp.obj', function ( object )
                { 
 								object.position.y = 0;
                 ob4=object   

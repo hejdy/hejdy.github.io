@@ -167,10 +167,8 @@
         </button>
         <div class="dropdown-content">
           <a href="./babylon.html">Babylon.js</a>
-          <a href="/three.html">Three.js</a>
-          <a href="https://www.youtube.com/watch?v=mDFBTdToRmw"
-            >Youtube video
-          </a>
+          <a href="./three.html">Three.js - DAE</a>
+         <a href="./threeobj.html">Three.js - OBJ</a>
         </div>
       </div>
       <a href="http://venkov.fsv.cvut.cz/projekt/index.html"
@@ -178,7 +176,7 @@
       </a>
     </div>
     
-    <h3>Vizualizace v rozhraní Three.js</h3>
+    <h3>Vizualizace modelu ve formátu DAE v rozhraní Three.js</h3>
 
    
 		<div id="container"></div> 
@@ -229,7 +227,7 @@
 
         //rendering 
 				renderer = new THREE.WebGLRenderer( { antialias: true } );
-        renderer.setClearColor( 0xffffff );
+        renderer.setClearColor( 0xffffff  );
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth-80, window.innerHeight );
 				container.appendChild( renderer.domElement );

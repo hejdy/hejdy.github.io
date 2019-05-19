@@ -169,10 +169,8 @@
         </button>
         <div class="dropdown-content">
           <a href="./babylon.html">Babylon.js</a>
-          <a href="./three.html">Three.js</a>
-          <a href="https://www.youtube.com/watch?v=mDFBTdToRmw"
-            >Youtube video
-          </a>
+          <a href="./three.html">Three.js - DAE</a>
+         <a href="./threeobj.html">Three.js - OBJ</a>
         </div>
       </div>
       <a href="http://venkov.fsv.cvut.cz/projekt/index.html"
@@ -180,7 +178,7 @@
       </a>
     </div>
 
-    <h3>Vizualizace v rozhraní Babylon.js</h3>
+    <h3>Vizualizace modelu ve formátu OBJ v rozhraní Babylon.js </h3>
     <canvas id="renderCanvas"></canvas>
     <script>
    
@@ -225,7 +223,7 @@
             BABYLON.SceneLoader.ImportMesh(
               "",
               "./babylon/",
-              "interier1np.obj",
+              "interier1npp.obj",
               scene,
               function(myMeshesTwo) {
                     
@@ -238,7 +236,7 @@
                     BABYLON.SceneLoader.ImportMesh(
                       "",
                       "./babylon/",
-                      "interier2np.obj",
+                      "interier2pp.obj",
                       scene,
                       function(myMeshesFour) {
                       
