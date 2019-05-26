@@ -244,13 +244,13 @@
 
 				new THREE.MTLLoader()
 					.setPath( './babylon/' )
-					.load( 'interier1pp.mtl', function ( materials ) 
+					.load( 'interier2pp.mtl', function ( materials ) 
           {
 						materials.preload();
 						new THREE.OBJLoader()
 							.setMaterials( materials )
 							.setPath( './babylon/' )
-							.load( 'interier1pp.obj', function ( object ) 
+							.load( 'interier2pp.obj', function ( object ) 
               {
                 ob2=object
 								object.position.y = 0;
@@ -278,13 +278,13 @@
 
 				new THREE.MTLLoader()
 					.setPath( './babylon/' )
-					.load( 'interier2pp.mtl', function ( materials )
+					.load( 'interier1pp.mtl', function ( materials )
            {
 						materials.preload();
 						new THREE.OBJLoader()
 							.setMaterials( materials )
 							.setPath( './babylon/' )
-							.load( 'interier2pp.obj', function ( object )
+							.load( 'interier1pp.obj', function ( object )
                { 
 								object.position.y = 0;
                 ob4=object   
@@ -335,7 +335,7 @@
 
                 var BT2 = document.createElement("button")
                         BT2.id = "ShowHidemyMeshesTwo"
-                        BT2.textContent = "Příčky dole"
+                        BT2.textContent = "Příčky nahoře"
                         BT2.style.backgroundColor = "green"
                         BT2.style.display = "block"
                         BT2.style.width = "100%"
@@ -365,7 +365,7 @@
 
                 var BT4 = document.createElement("button")
                         BT4.id = "ShowHidemyMeshesThree"
-                        BT4.textContent = "Příčky nahoře"
+                        BT4.textContent = "Příčky dole"
                         BT4.style.backgroundColor = "green"
                         BT4.style.display = "block"
                         BT4.style.width = "100%"
